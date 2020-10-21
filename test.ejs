@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>회원가입 페이지</h1>
+<p>사용자 정보를 입력해주세요</p>
+
+<input type="text" id="userId"/>
+<input type="text" id="userPassword"/>
+<button type="button" id="sendButton">보내기</button>
+
+<script> //라이브러리 불러오기
+    src="https://code.jquery.com/jquery-3.5.1.slim.js" 
+    integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" 
+    crossorigin="anonymous"> //jquery cdn에서 가져옴
+</script>
+<script>
+    $("sendButton").click(function(){
+        //버튼 클릭하면 아래 이벤트가 실행됨
+        var userId = $("#userId").val(); //위에 input~userID에 해당함
+        var userPassword = $("#userPassword").val();
+        console.log(userId, userPassword);
+    })
+    $.ajax({
+        url: '/getData',
+        type : 'POST',
+        data : {
+            sendUserId : userId,
+            sendUserPassword : userPassword 
+        },
+        success:function(responseData){
+            if(responseData == '1'){
+                console.log("전송성공");
+            }
+        }
+    }) //postman의 구조와 같음
+    //서버파일은 expressServer.js의 getData와 연결됨
+
+    //$("#userID") //위에 input~userID에 해당함
+    //jquery불러오기. ID를 불러올때는 #을 붙임
+</script>
+</body>
+</html>
